@@ -6,5 +6,10 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
 }
 
+//在 compiler中使用了中文，所以需要指定编码集
+tasks.withType(JavaCompile){
+    options.encoding='UTF-8'
+}
+
 sourceCompatibility = "7"
 targetCompatibility = "7"

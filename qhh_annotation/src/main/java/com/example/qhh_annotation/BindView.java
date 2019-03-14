@@ -15,8 +15,8 @@ import java.lang.annotation.Target;
  * @updateDate $Date$
  * @updateDes
  */
-@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.CLASS)
+@Target({ElementType.FIELD})
 public @interface BindView {
     int value();
 }
