@@ -2,6 +2,9 @@ package com.example.compiler;
 
 import com.example.qhh_annotation.BindView;
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -18,6 +21,7 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
@@ -112,6 +116,28 @@ public class BindProcessor extends AbstractProcessor {
                 }
 
             }
+
+            MethodSpec methodSpec = MethodSpec.methodBuilder("inject")
+                    .addModifiers(Modifier.PRIVATE)
+                    .returns(void.class)
+                    .addParameter(String.class, "id")
+                    .addStatement("String view = id")
+                    .build();
+
+            TypeSpec typeSpec = TypeSpec.classBuilder("ViewInject")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addMethod(methodSpec)
+                    .build();
+
+            JavaFile javaFile = JavaFile.builder("com.sensetime.test", typeSpec)
+                    .build();
+
+            try {
+                javaFile.writeTo(mFileUtils);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
         return true;

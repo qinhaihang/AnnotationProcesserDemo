@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':qhh_annotation')
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
+    api 'com.squareup:javapoet:1.11.1'
 }
 
 //在 compiler中使用了中文，所以需要指定编码集
